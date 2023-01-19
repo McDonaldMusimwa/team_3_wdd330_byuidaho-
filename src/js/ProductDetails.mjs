@@ -43,7 +43,8 @@ async init() {
 addProductToCart() {
     setLocalStorage("so-cart", product);
     }
-    
+
+    // Taken from instructor "Brother Nelson" example to improve code
     renderProductDetails(selector) {
         const element = document.querySelector(selector);
         element.insertAdjacentHTML(
