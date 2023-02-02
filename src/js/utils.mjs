@@ -40,3 +40,27 @@ export function getParam(param) {
   const product = urlParams.get('product')
   return product
 }
+
+export function renderWithTemplate(template, parentElement, data, position = 'afterbegin', clear = false){
+  parentElement.insertAdjacentHTML("afterbegin",template);
+  if (callback){
+    callback(data)
+  }
+  
+}
+
+async function loadTemplate(path){
+  let fetchedData = await fetch(path);
+  let text = await fetchedData.text();
+  return text
+}
+
+export async function loadHeaderFooter(){
+ const templateForHeader=await loadTemplate("../partials/header.html");
+ const elementForHeader=document.querySelector("#main-header")
+ const templateForFooter=await loadTemplate("../partials/footer.html");
+ const elementForFooter=document.querySelector("#main-footer");
+
+  renderWithTemplate(templateForHeader,elementForHeader)
+  renderWithTemplate(templateForFooter,elementForFooter)
+}
