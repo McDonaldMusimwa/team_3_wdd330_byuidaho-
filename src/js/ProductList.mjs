@@ -4,14 +4,13 @@ function productCardTemplate(product) {
     return `<li class="product-card">
     <a href="product_pages/index.html?product=${product.Id}">
       <img
-        src="${product.Image}"
+        src="${product.Images.PrimaryMedium}"
         alt="Image of ${product.Name}"
       />
-      <h3 class="card__brand"></h3>
-      <h2 class="card__name"></h2>
-      <p class="product-card__price">$</p></a>
-    
-  </li>`
+      <h3 class="card__brand">${product.Brand.Name}</h3>
+      <h2 class="card__name">${product.Name}</h2>
+      <p class="product-card__price">$${product.FinalPrice}</p></a>   
+  </li>`;
 }
 
 export default class ProductList {
@@ -21,17 +20,19 @@ export default class ProductList {
         this.listElement = listElement;
     }
     async init() {
-        const list = await this.dataSource.getData();
+        const list = await this.dataSource.getData(this.category);
         this.renderList(list);
+        //set the title to the current category
+        document.querySelector('.title').innerHTML = this.category;
     }
 
 
-renderList(list) {
-    renderListWithTemplate(productCardTemplate, this.listElement, list);
-}
+    renderList(list) {
+        renderListWithTemplate(productCardTemplate, this.listElement, list);
+    }
 
-//renderList(list) {
+    //renderList(list) {
     //const htmlStrings = list.map(productCardTemplate);
     //this.listElement.insertAdjacentHTML('afterbegin', htmlStrings.join(''));
-//}
+    //}
 }
