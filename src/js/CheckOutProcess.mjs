@@ -1,4 +1,4 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 
 // takes a form element and returns an object where the key is the "name" of the form input.
@@ -91,8 +91,13 @@ export default class CheckoutProcess {
     try {
       const res = await services.checkout(json);
       console.log(res);
+      setLocalStorage('so-cart',[]);
+      location.assign('/checkout/success.html');
     } catch (err) {
-      console.log(err);
+      for (let message in err.message){
+        alertMessage(err.message[message]);
+      }
+      
     }
   }
 }
