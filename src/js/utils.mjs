@@ -51,6 +51,7 @@ export function renderWithTemplate(
   template,
   parentElement,
   data,
+  callback,
   position = "afterbegin",
   clear = false
 ) {
